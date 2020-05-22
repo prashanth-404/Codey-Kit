@@ -1,0 +1,112 @@
+int lm1=5;
+int lm2=3;
+int rm1=6;
+int rm2=11;
+int midsensor;
+int leftsensor;
+int rightsensor;
+
+void setup() {
+  pinMode(lm1,OUTPUT);// put your setup code here, to run once:
+  pinMode(lm2,OUTPUT);
+  pinMode(rm1,OUTPUT);
+  pinMode(rm2,OUTPUT);
+  pinMode(8,INPUT);
+  pinMode(7,INPUT);
+  pinMode(9,INPUT);
+}
+
+void loop() {
+  midsensor=digitalRead(8);
+  leftsensor=digitalRead(7);
+  rightsensor=digitalRead(9);
+
+  if(midsensor==LOW && leftsensor==LOW && rightsensor==LOW){
+    backward();
+    delay(200);
+    left();
+    delay(200);
+  }
+  if(midsensor==HIGH && leftsensor==HIGH && rightsensor==HIGH){
+    forward();
+  }
+  if(midsensor==HIGH && leftsensor==HIGH && rightsensor==LOW){
+    left();
+  }
+  if(midsensor==LOW && leftsensor==HIGH && rightsensor==LOW){
+    backward();
+    delay(200);
+    left();
+    delay(200);
+  }
+  if(midsensor==HIGH && leftsensor==LOW && rightsensor==HIGH){
+    right();
+  }
+  if(midsensor==LOW && leftsensor==LOW && rightsensor==HIGH){
+    backward();
+    delay(250);
+    right();
+    delay(250);
+  }
+  if(midsensor==HIGH && leftsensor==LOW && rightsensor==LOW){
+    backward();
+    delay(250);
+    left();
+    delay(250);
+  }
+  if(midsensor==LOW && leftsensor==HIGH && rightsensor==HIGH){
+    backward();
+    delay(250);
+    left();
+    delay(250);
+  }
+}
+
+void forward(){
+  analogWrite(lm1,150);// forward run
+  analogWrite(lm2,0);
+  analogWrite(rm1,150);
+  analogWrite(rm2,0);
+}
+
+void backward(){
+  analogWrite(lm1,0);// backward run
+  analogWrite(lm2,150);
+  analogWrite(rm1,0);
+  analogWrite(rm2,150);
+}
+
+void left(){
+  analogWrite(lm1,0);// left turn
+  analogWrite(lm2,150);
+  analogWrite(rm1,150);
+  analogWrite(rm2,0);
+}
+
+void right(){ 
+  analogWrite(lm1,150);// right turn
+  analogWrite(lm2,0);
+  analogWrite(rm1,0);
+  analogWrite(rm2,150);
+}
+
+void stp(){ 
+  analogWrite(lm1,0);// stops
+  analogWrite(lm2,0);
+  analogWrite(rm1,0);
+  analogWrite(rm2,0);
+}
+
+void stpleft(){
+  analogWrite(lm1,0);// turns left slowly
+  analogWrite(lm2,0);
+  analogWrite(rm1,150);
+  analogWrite(rm2,0);
+}
+
+void stpright(){
+  analogWrite(lm1,150);// turns right slowly
+  analogWrite(lm2,0);
+  analogWrite(rm1,0);
+  analogWrite(rm2,0);
+}
